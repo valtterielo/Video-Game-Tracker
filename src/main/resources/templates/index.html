@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <title>Upcoming Games</title>
+</head>
+<body>
+<div class="card" style="width:auto; margin: auto; width: 100%;  padding: 10px; opacity: 0.95; margin-top: 100px;">
+    <div class="container">
+        <h2>Upcoming Video Games</h2><br>
+<table class="table table-striped table-hover">
+    <tbody>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Release Date</th>
+        <th>Category</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr th:each="game:${games}">
+        <td th:text="${game.name}"></td>
+        <td th:text="${game.desc}"></td>
+        <td th:text="${game.releasedate}"></td>
+        <td th:text="${game.category.name}"></td>
+        <td><a class="btn btn-primary btn-sm">Edit</a></td>
+        <td><a th:href="@{/delete/{id}(id=${game.id})}" class="btn btn-danger btn-sm">Delete</a></td>
+    </tr>
+    </tbody>
+</table>
+        <div class="form-inline float-left" style="padding:20px 0">
+            <a href="/add"><button type="button" class="btn btn-success">Add Game</button></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

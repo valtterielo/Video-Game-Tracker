@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Add a new game</title>
+</head>
+<body>
+<div class="card" style="width:800px; margin: auto; width: 60%;  padding: 10px; opacity: 0.95; margin-top: 100px;">
+    <div class="container">
+        <h2>Add a new game</h2><br>
+
+        <form th:object="${game}" th:action="@{/save}" action="#" method="post" >
+
+            <div class="form-group">
+                <label>Name</label><br/>
+                <input type="text" class="form-control" placeholder="Name" name="name" th:field="*{name}"/>
+            </div>
+
+            <div class="form-group">
+                <label>Description</label><br/>
+                <input type="text" class="form-control" placeholder="Description" name="description" th:field="*{desc}"/>
+            </div>
+
+            <div class="form-group">
+                <label>Release Date</label><br/>
+                <input type="text" class="form-control" placeholder="Release Date" name="releasedate" th:field="*{releasedate}"/>
+            </div>
+
+            <select th:field="*{category}">
+                <option th:each="category : ${categories}"
+                        th:value="${category.categoryid}"
+                        th:text="${category.name}">
+                </option>
+            </select>
+
+            <button type="submit" class="btn btn-primary float-right">Save</button>
+            <a href="/index" class="btn btn btn-info float-right">Back</a>
+
+        </form>
+
+    </div>
+</div>
+</body>
+</html>
