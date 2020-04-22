@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Add a new game</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <div class="card" style="width:800px; margin: auto; width: 60%;  padding: 10px; opacity: 0.95; margin-top: 100px;">
@@ -16,18 +21,22 @@
             <div class="form-group">
                 <label>Name</label><br/>
                 <input type="text" class="form-control" placeholder="Name" name="name" th:field="*{name}"/>
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="error"></span>
             </div>
 
             <div class="form-group">
                 <label>Description</label><br/>
                 <input type="text" class="form-control" placeholder="Description" name="description" th:field="*{desc}"/>
+                <span th:if="${#fields.hasErrors('desc')}" th:errors="*{desc}" th:errorclass="error"></span>
             </div>
 
             <div class="form-group">
                 <label>Release Date</label><br/>
                 <input type="text" class="form-control" placeholder="Release Date" name="releasedate" th:field="*{releasedate}"/>
+                <span th:if="${#fields.hasErrors('releasedate')}" th:errors="*{releasedate}" th:errorclass="error"></span>
             </div>
 
+            <label>Description</label><br/>
             <select th:field="*{category}">
                 <option th:each="category : ${categories}"
                         th:value="${category.categoryid}"
@@ -35,8 +44,8 @@
                 </option>
             </select>
 
-            <button type="submit" class="btn btn-primary float-right">Save</button>
-            <a href="/index" class="btn btn btn-info float-right">Back</a>
+            <a href="/index" class="btn btn btn-info btn-sm">Back</a>
+            <button type="submit" class="btn btn-primary btn-sm ">Save</button>
 
         </form>
 

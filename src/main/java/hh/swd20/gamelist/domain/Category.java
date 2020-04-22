@@ -12,7 +12,7 @@ public class Category {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long categoryid;
-	
+
 	private String name;
 	
 	@JsonBackReference
@@ -60,10 +60,10 @@ public class Category {
 		this.games = games;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "Category [categoryid=" + categoryid + ", name=" + name + ", games=" + games + "]";
-	}
+	}*/
 	
 	
 	

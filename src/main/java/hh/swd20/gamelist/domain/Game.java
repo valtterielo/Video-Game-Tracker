@@ -1,6 +1,9 @@
 package hh.swd20.gamelist.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -10,9 +13,13 @@ public class Game {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
-	
+
+	@NotBlank(message = "Cannot be empty!")
 	private String name;
+	@NotBlank(message = "Cannot be empty!")
+	@Size(max = 255, message = "Description cannot exceed 255 characters")
 	private String desc;
+	@NotBlank(message = "Cannot be empty!")
 	private String releasedate;
 	
 	@ManyToOne
@@ -79,11 +86,11 @@ public class Game {
 		this.category = category;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "Game [id=" + id + ", name=" + name + ", desc=" + desc + ", releasedate=" + releasedate + ", category="
 				+ category + "]";
-	}
+	}*/
 	
 	
 	

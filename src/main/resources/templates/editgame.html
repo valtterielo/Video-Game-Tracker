@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Edit Game</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="card" style="width:800px; margin: auto; width: 60%;  padding: 10px; opacity: 0.95; margin-top: 100px;">
+    <h3>Edit game</h3><br>
+<form th:object="${game}" th:action="@{../save}" action="#" method="post">
+    <input type="hidden" th:field="*{id}" class="form-control"/>
+
+    <div class="form-group">
+        <label>Name</label><br/>
+        <input type="text" class="form-control" placeholder="Name" name="name" th:field="*{name}"/>
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="error"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Description</label><br/>
+        <input type="text" class="form-control" placeholder="Description" name="description" th:field="*{desc}"/>
+        <span th:if="${#fields.hasErrors('desc')}" th:errors="*{desc}" th:errorclass="error"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Release Date</label><br/>
+        <input type="text" class="form-control" placeholder="Release Date" name="releasedate" th:field="*{releasedate}"/>
+        <span th:if="${#fields.hasErrors('releasedate')}" th:errors="*{releasedate}" th:errorclass="error"></span>
+    </div>
+
+    <select th:field="*{category}">
+        <option th:each="category : ${categories}"
+                th:value="${category.categoryid}"
+                th:text="${category.name}">
+        </option>
+    </select>
+    <a href="/index" class="btn btn btn-info btn-sm">Back</a>
+    <input type="submit" class="btn btn-success btn-sm" value="Save"></input>
+</form>
+</div>
+</body>
+</html>
