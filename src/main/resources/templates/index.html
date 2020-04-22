@@ -7,25 +7,20 @@
     <meta charset="UTF-8">
     <title>Upcoming Games</title>
 
-    <style>
-		body {
-		  background-image: url('../coin.jpg');
-		  background-repeat: no-repeat;
-		  background-attachment: fixed;
-		  background-size: cover;
-		}
-
-</style>
-
 </head>
 <body>
 <div class="card" style="width:auto; margin: auto; width: 100%;  padding: 10px; opacity: 0.95; margin-top: 100px;">
     <div class="container">
 
-        <h2>Upcoming Video Games - Admin's Control Panel</h2>
+        <h1>Upcoming Video Games</h1>
+        <h3 th:inline="text">Control panel - Welcome back [[${#httpServletRequest.remoteUser}]]</h3>
 
         <div class="form-inline float-left" style="padding:20px 0">
             <a href="/add"><button type="button" class="btn btn-success btn-sm">Add Game</button></a>
+            <a href="/addModerator"><button type="button" class="btn btn-primary btn-sm">Add Moderator</button></a>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out" class="btn btn-danger btn-sm"/>
+            </form>
         </div>
 
 <table class="table table-striped table-hover">

@@ -1,9 +1,6 @@
 package hh.swd20.gamelist;
 
-import hh.swd20.gamelist.domain.Category;
-import hh.swd20.gamelist.domain.CategoryRepository;
-import hh.swd20.gamelist.domain.Game;
-import hh.swd20.gamelist.domain.GameRepository;
+import hh.swd20.gamelist.domain.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +8,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.Bean;
 
 //Security disabled for testing
-@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+@SpringBootApplication//(exclude = SecurityAutoConfiguration.class)
 public class GamelistApplication {
 
 	public static void main(String[] args) {
@@ -19,8 +16,9 @@ public class GamelistApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(CategoryRepository categoryrepo, GameRepository gamerepo){
+	public CommandLineRunner demo(CategoryRepository categoryrepo, GameRepository gamerepo, UserRepository userepo){
 		return (args) -> {
+
 			Category c1 = new Category("-");
 			Category c2 = new Category("action");
 			Category c3 = new Category("action");
@@ -33,9 +31,16 @@ public class GamelistApplication {
 			Category c9 = new Category("sports");
 			Category c10 = new Category("platformer");
 			Category c11 = new Category("puzzle");
-			Game g1 = new Game("Planetside 2", "Guns. Space. Pew Pew. Wow!", "released", c1);
-			Game g2 = new Game("Paper Mario", "Finally coming", "tba", c2);
-			Game g3 = new Game("Valorant", "Competitive shooter", "2020", c1);
+
+			Game g1 = new Game("Trials of Mana", "Modern revival of the 3rd game in the seminal Mana series", "18.3.2020", c5);
+			Game g2 = new Game("The Last of Us Part II", "5 years after their adventure, Ellie and Jackson continue their journey", "29.5.2020", c5);
+			Game g3 = new Game("Cyberpunk 2077", "Next big open world RPG of the dark future", "17.9.2020", c5);
+			Game g4 = new Game("Minecraft Dungeons", "Minecraft mixed with classic dungeon crawlers", "26.5.2020", c4);
+
+			//username:user password:user
+			User user1 = new User("admin", "$2y$10$5.o7WjCrUH9wRDvWHTYGjeOII7EFUQDXRSDswOg6eD4qIzpYd7UVe", "ADMIN");
+			//username:moderator password:moderator
+			User user2 = new User("moderator", "$2y$10$ZoONKguJ.aZWtUYhAZSomeWn6cuuqGCPcNd7tDnjk2A/IrWfIakxK", "MODERATOR");
 
 			categoryrepo.save(c1);
 			categoryrepo.save(c2);
@@ -53,6 +58,10 @@ public class GamelistApplication {
 			gamerepo.save(g1);
 			gamerepo.save(g2);
 			gamerepo.save(g3);
+			gamerepo.save(g4);
+
+			userepo.save(user1);
+			userepo.save(user2);
 		};
 	}
 
