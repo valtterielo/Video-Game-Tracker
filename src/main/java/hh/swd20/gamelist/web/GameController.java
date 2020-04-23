@@ -28,8 +28,14 @@ public class GameController {
     private GameRepository grepository;
 
     @RequestMapping(value = {"/", "/index"})
-    public String gameList(Model model){
-        model.addAttribute("games", grepository.findAll());
+    public String gameList(Model model, String keyword){
+
+        if(keyword!=null){
+            model.addAttribute("games", grepository.findByKeyword(keyword));
+        } else {
+            model.addAttribute("games", grepository.findAll());
+        }
+
         return "index";
     }
 
