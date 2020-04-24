@@ -31,8 +31,8 @@
 
     <div class="form-group">
         <label>Release Date</label><br/>
-        <input type="text" class="form-control" placeholder="Release Date" name="releasedate" th:field="*{releasedate}"/>
-        <span th:if="${#fields.hasErrors('releasedate')}" th:errors="*{releasedate}" th:errorclass="error"></span>
+        <input type="text" class="form-control" placeholder="Release Date (yyyy-mm-dd)" name="releasedate" th:field="*{releasedateString}"/>
+        <span th:if="${#fields.hasErrors('releasedateString')}" th:errors="*{releasedateString}" th:errorclass="error"></span>
     </div>
 
     <select th:field="*{category}">

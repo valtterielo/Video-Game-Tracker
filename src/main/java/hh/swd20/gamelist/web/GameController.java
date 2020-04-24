@@ -1,9 +1,8 @@
 package hh.swd20.gamelist.web;
 
-import hh.swd20.gamelist.domain.CategoryRepository;
-import hh.swd20.gamelist.domain.Game;
-import hh.swd20.gamelist.domain.GameRepository;
+import hh.swd20.gamelist.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,7 +17,7 @@ import java.util.List;
 @Controller
 public class GameController {
 
-    //used to keep track which html page should be loaded if validation requirements aren't filled
+    //used to keep track which html page should be saved
     public String clickedPage;
 
     @Autowired
@@ -27,13 +26,16 @@ public class GameController {
     @Autowired
     private GameRepository grepository;
 
+    @Autowired
+    private UserRepository urepository;
+
     @RequestMapping(value = {"/", "/index"})
     public String gameList(Model model, String keyword){
 
         if(keyword!=null){
             model.addAttribute("games", grepository.findByKeyword(keyword));
         } else {
-            model.addAttribute("games", grepository.findAll());
+            model.addAttribute("games", grepository.sortByDate());
         }
 
         return "index";
@@ -47,6 +49,14 @@ public class GameController {
         return "addgame";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @RequestMapping(value = "/addModerator")
+    public String addModerator(Model model){
+        model.addAttribute("user", new User());
+        return "addmoderator";
+    }
+
+    //Save changes to Game
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(@Valid Game game, BindingResult result) {
         if(result.hasErrors()){
@@ -56,7 +66,23 @@ public class GameController {
                 return "editgame";
             }
         }
+        if(clickedPage.equals("editpage")){
+            game.setReleasedate(game.getReleasedateString());
+        } else if(clickedPage.equals("addpage")){
+            game.setReleasedateString(game.getReleasedate().toString());
+        }
         grepository.save(game);
+        return "redirect:index";
+    }
+
+    //Save changes to User
+    @RequestMapping(value = "/saveuser", method = RequestMethod.POST)
+    public String save(@Valid User user, BindingResult result) {
+        if(result.hasErrors()){
+            return "addmoderator";
+        }
+        user.setRole("MODERATOR");
+        urepository.save(user);
         return "redirect:index";
     }
 

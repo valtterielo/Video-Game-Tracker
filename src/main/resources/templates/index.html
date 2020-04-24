@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <html lang="en">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -15,16 +15,18 @@
 
         <h1>Upcoming Video Games</h1>
 
-        <h3 th:inline="text">Control panel - Welcome back [[${#httpServletRequest.remoteUser}]]</h3>
+        <h3 th:inline="text">Control panel - Welcome back <span style="color:Orange">[[${#httpServletRequest.remoteUser}]]</span></h3>
 
         <div class="form-inline float-left" style="padding:20px 0;">
             <a href="/add">
                 <button type="button" class="btn btn-success btn-sm">Add Game</button>
             </a>
 
-            <a href="/addModerator">
-                <button type="button" class="btn btn-primary btn-sm" style="margin-left: 5px;">Add Moderator</button>
-            </a>
+            <div sec:authorize="hasAuthority('ADMIN')">
+                <a href="/addModerator">
+                    <button sec:authorize="hasAuthority('ADMIN')" type="button" class="btn btn-primary btn-sm" style="margin-left: 5px;">Add Moderator</button>
+                </a>
+            </div>
 
             <form th:action="@{/logout}" method="post">
                 <input type="submit" value="Sign Out" class="btn btn-danger btn-sm" style="margin-left: 5px;"/>

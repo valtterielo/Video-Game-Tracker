@@ -11,4 +11,7 @@ public interface GameRepository extends CrudRepository<Game, Long> {
     @Query(value = "select * from Game g where g.name like %:keyword% or g.releasedate like %:keyword%", nativeQuery = true)
     List<Game> findByKeyword(@Param("keyword") String keyword);
 
+    @Query(value = "select * from Game g order by g.releasedate", nativeQuery = true)
+    List<Game> sortByDate();
+
 }

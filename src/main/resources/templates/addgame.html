@@ -32,11 +32,11 @@
 
             <div class="form-group">
                 <label>Release Date</label><br/>
-                <input type="text" class="form-control" placeholder="Release Date" name="releasedate" th:field="*{releasedate}"/>
+                <input type="text" class="form-control" placeholder="Release Date (yyyy-mm-dd)" name="releasedate" th:field="*{releasedate}"/>
                 <span th:if="${#fields.hasErrors('releasedate')}" th:errors="*{releasedate}" th:errorclass="error"></span>
             </div>
 
-            <label>Description</label><br/>
+            <label>Category</label><br/>
             <select th:field="*{category}">
                 <option th:each="category : ${categories}"
                         th:value="${category.categoryid}"

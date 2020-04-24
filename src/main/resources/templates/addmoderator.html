@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Add a new moderator</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="card" style="width:800px; margin: auto; width: 60%;  padding: 10px; opacity: 0.95; margin-top: 100px;">
+    <div class="container">
+        <h2>Add a new moderator</h2><br>
+
+        <div>
+            <p>Remember to hash the password <a href="https://bcrypt-generator.com/" target="_blank">here</a>!</p>
+        </div>
+
+        <form th:object="${user}" th:action="@{/saveuser}" action="#" method="post" >
+
+            <div class="form-group">
+                <label>Name</label><br/>
+                <input type="text" class="form-control" placeholder="Username" name="username" th:field="*{username}"/>
+                <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:errorclass="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Description</label><br/>
+                <input type="text" class="form-control" placeholder="Hashed Password" name="password" th:field="*{passwordHash}"/>
+                <span th:if="${#fields.hasErrors('passwordHash')}" th:errors="*{passwordHash}" th:errorclass="error"></span>
+            </div>
+
+            <a href="/index" class="btn btn btn-info btn-sm">Back</a>
+            <button type="submit" class="btn btn-primary btn-sm ">Save</button>
+
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

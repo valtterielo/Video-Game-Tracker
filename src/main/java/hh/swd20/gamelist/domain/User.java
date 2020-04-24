@@ -1,6 +1,7 @@
 package hh.swd20.gamelist.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class User {
@@ -10,11 +11,12 @@ public class User {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    // Username with unique constraint
+    @NotBlank(message = "Cannot be empty!")
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @NotBlank(message = "Cannot be empty!")
+    @Column(name = "passwordHash", nullable = false)
     private String passwordHash;
 
     @Column(name = "role", nullable = false)

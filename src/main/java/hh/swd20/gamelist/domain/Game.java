@@ -2,10 +2,9 @@ package hh.swd20.gamelist.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.sql.Date;
 
 @Entity
 public class Game {
@@ -19,27 +18,27 @@ public class Game {
 	@NotBlank(message = "Cannot be empty!")
 	@Size(max = 255, message = "Description cannot exceed 255 characters")
 	private String desc;
-	@NotBlank(message = "Cannot be empty!")
-	private String releasedate;
+	private Date releasedate;
+	private String releasedateString;
 	
 	@ManyToOne
 	@JsonManagedReference
 	@JoinColumn(name = "categoryid")
 	private Category category;
 
-	public Game(String name, String desc, String releasedate, Category category) {
+	public Game(String name, String desc, String strReleasedate, Category category) {
 		super();
 		this.name = name;
 		this.desc = desc;
-		this.releasedate = releasedate;
+		this.releasedate = Date.valueOf(strReleasedate);
 		this.category = category;
 	}
 	
-	public Game(String name, String desc, String releasedate) {
+	public Game(String name, String desc, String strReleasedate) {
 		super();
 		this.name = name;
 		this.desc = desc;
-		this.releasedate = releasedate;
+		this.releasedate = Date.valueOf(strReleasedate);
 	}
 
 	public Game() {
@@ -70,12 +69,12 @@ public class Game {
 		this.desc = desc;
 	}
 
-	public String getReleasedate() {
+	public Date getReleasedate() {
 		return releasedate;
 	}
 
-	public void setReleasedate(String releasedate) {
-		this.releasedate = releasedate;
+	public void setReleasedate(String strReleasedate) {
+		this.releasedate = Date.valueOf(strReleasedate);
 	}
 
 	public Category getCategory() {
@@ -84,6 +83,14 @@ public class Game {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public String getReleasedateString() {
+		return releasedateString;
+	}
+
+	public void setReleasedateString(String releasedateString) {
+		this.releasedateString = releasedateString;
 	}
 
 	/*@Override
